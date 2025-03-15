@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contest Tracker</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header>
+    <h1>Upcoming Contests</h1>
+    <% if (session && session.user) { %>
+      <p>Welcome, <%= session.user.username %> | <a href="/users/logout">Logout</a></p>
+    <% } else { %>
+      <a href="/users/login">Login</a> | <a href="/users/register">Register</a>
+    <% } %>
+  </header>
+  <main>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Platform</th>
+          <th>Start Time</th>
+          <th>End Time</th>
+          <th>Link</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% contests.forEach(contest => { %>
+          <tr>
+            <td><%= contest.name %></td>
+            <td><%= contest.platform %></td>
+            <td><%= new Date(contest.start_time).toLocaleString() %></td>
+            <td><%= new Date(contest.end_time).toLocaleString() %></td>
+            <td><a href="<%= contest.url %>" target="_blank">Go</a></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </main>
+</body>
+</html>
